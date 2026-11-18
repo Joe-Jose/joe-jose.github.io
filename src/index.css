@@ -1,0 +1,252 @@
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #07080a;
+  --bg-raised: #0d0f12;
+  --bg-panel: #14171b;
+
+  --text-primary: #e8eaed;
+  --text-secondary: #9aa0a6;
+  --text-tertiary: #5f6670;
+  --text-silkscreen: #7f8794;
+
+  --accent-copper: #c8935a;
+  --accent-copper-warm: #e3b778;
+
+  --radius-card: 14px;
+  --radius-pill: 999px;
+  --ease-board: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    overflow-x: clip;
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-copper-warm);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  border: 1px solid rgba(200, 147, 90, 0.5);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: top 200ms var(--ease-board);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Faint 48px blueprint grid (~3% opacity) */
+.pcb-grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(232, 234, 237, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(232, 234, 237, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Film grain noise overlay (~3.5% opacity via inline SVG feTurbulence) */
+.pcb-grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.035;
+}
+
+/* Edge vignette */
+.pcb-vignette-overlay {
+  background: radial-gradient(
+    ellipse 86% 80% at 50% 45%,
+    transparent 52%,
+    rgba(7, 8, 10, 0.38) 84%,
+    rgba(7, 8, 10, 0.72) 100%
+  );
+}
+
+/* Liquid-Glass Card Surface */
+.glass-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 40px -20px rgba(0, 0, 0, 0.85);
+  transition:
+    transform 450ms var(--ease-board),
+    background-color 450ms var(--ease-board),
+    box-shadow 450ms var(--ease-board);
+}
+
+/* 1px gradient border: bright top-left fading to transparent bottom-right */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 246, 247, 0.22) 0%,
+    rgba(184, 189, 196, 0.1) 38%,
+    rgba(200, 147, 90, 0.12) 72%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Specular cursor sheen driven by --mx and --my */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(245, 246, 247, 0.075) 0%,
+    rgba(200, 147, 90, 0.035) 32%,
+    transparent 70%
+  );
+  opacity: var(--sheen-opacity, 0);
+  transition: opacity 420ms var(--ease-board);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card:hover::after,
+.glass-card:focus-within::after {
+  opacity: 1;
+}
+
+/* Metallic Silver Gradient Text */
+.metal-text {
+  position: relative;
+  display: inline-block;
+  color: #e8eaed;
+  background-image: linear-gradient(
+    165deg,
+    #f5f6f7 0%,
+    #dfe2e6 28%,
+    #b8bdc4 62%,
+    #7b818a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metal-text-sheen {
+  background-image: linear-gradient(
+    115deg,
+    #f5f6f7 0%,
+    #b8bdc4 34%,
+    #ffffff 48%,
+    #b8bdc4 60%,
+    #6b7078 100%
+  );
+  background-size: 220% 100%;
+  background-position: 100% 0%;
+  transition: background-position 900ms var(--ease-board);
+}
+
+.metal-text-sheen.sheen-active,
+.metal-text-sheen:hover {
+  background-position: 0% 0%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metal-text-sheen {
+    transition: none;
+    background-position: 100% 0%;
+  }
+  .glass-card {
+    transition: none;
+  }
+}
+
+/* Copper status dot slow subtle pulse */
+@keyframes copper-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.animate-copper-pulse {
+  animation: copper-pulse 2.8s var(--ease-board) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-copper-pulse {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.animate-toast-in {
+  animation: toast-in 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}

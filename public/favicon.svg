@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#07080A" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" stroke="#C8935A" stroke-opacity="0.35" stroke-width="1" />
+  <!-- Pins Top/Bottom -->
+  <path d="M22 10v8M32 10v8M42 10v8M22 46v8M32 46v8M42 46v8" stroke="#C8935A" stroke-width="2" stroke-linecap="round" />
+  <!-- Pins Left/Right -->
+  <path d="M10 22h8M10 32h8M10 42h8M46 22h8M46 32h8M46 42h8" stroke="#C8935A" stroke-width="2" stroke-linecap="round" />
+  <!-- IC Package -->
+  <rect x="18" y="18" width="28" height="28" rx="4" fill="#14171B" stroke="#E3B778" stroke-width="1.5" />
+  <!-- Pin 1 Dot -->
+  <circle cx="24" cy="24" r="2" fill="#E3B778" />
+  <!-- Inner Die Trace -->
+  <path d="M28 36h8M32 28v8" stroke="#E8EAED" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
+</svg>
