@@ -185,8 +185,6 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      (window as any).__PCB_MOUNTED__ = true;
-      console.log('[PcbCanvas] useEffect mounted', canvas.clientWidth, canvas.clientHeight);
 
       const staticCanvas = document.createElement('canvas');
       const litCanvas = document.createElement('canvas');
@@ -199,12 +197,10 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
       let isMobile = viewW < 768;
       const parallaxPad = 320;
 
-      console.log('[PcbCanvas] initial dimensions', { viewW, viewH, dpr, isMobile });
 
       let layout = generatePcbLayout(viewW, viewH + parallaxPad, isMobile);
       const scratchXY = new Float64Array(64);
 
-      console.log('[PcbCanvas] layout generated', { traces: layout.traces.length, vias: layout.vias.length });
 
       // Pre-allocate pulse pool (zero runtime allocations)
       const maxPulses = 20;
@@ -239,7 +235,6 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
       };
 
       const rebuildBuffers = () => {
-        console.log('[PcbCanvas] rebuildBuffers');
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         viewW = canvas.clientWidth || window.innerWidth;
         viewH = canvas.clientHeight || window.innerHeight;
@@ -288,7 +283,6 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
       let scrollVelocity = 0;
 
       const drawStaticOnly = () => {
-        console.log('[PcbCanvas] drawStaticOnly');
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(
@@ -314,7 +308,6 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
       };
 
       if (reducedMotion) {
-        console.log('[PcbCanvas] reducedMotion mode');
         drawStaticOnly();
         let resizeTimer: number | undefined;
         const onResizeReduced = () => {
@@ -369,7 +362,6 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
 
       const tick = (now: number) => {
             rafId = window.requestAnimationFrame(tick);
-            (window as any).__PCB_TICK_COUNT__ = ((window as any).__PCB_TICK_COUNT__ || 0) + 1;
 
         if (!isVisible || !isInViewport) {
           lastTime = now;
@@ -530,16 +522,13 @@ export const PcbCanvas: React.FC<PcbCanvasProps> = ({ debugNets = false, pulseBo
         }
       };
 
-      console.log('[PcbCanvas] starting animation loop');
-          (window as any).__PCB_TICK_COUNT__ = 0;
-          
+                    
           // Initial draw immediately (not waiting for rAF) for hidden/background tabs
           tick(performance.now());
           
           rafId = window.requestAnimationFrame(tick);
 
       return () => {
-        console.log('[PcbCanvas] cleanup');
         window.cancelAnimationFrame(rafId);
         window.clearTimeout(resizeTimer);
         io.disconnect();

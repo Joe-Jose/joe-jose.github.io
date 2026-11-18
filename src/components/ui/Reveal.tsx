@@ -56,10 +56,10 @@ export const Reveal: React.FC<RevealProps> = ({
         ...style,
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : `translateY(${y}px)`,
-        filter: isVisible ? 'blur(0)' : `blur(${blur}px)`,
+        filter: isVisible ? 'none' : `blur(${blur}px)`,
         transition: `opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 700ms cubic-bezier(0.22, 1, 0.36, 1)`,
         transitionDelay: `${delay}ms`,
-        willChange: 'opacity, transform, filter',
+        willChange: isVisible ? 'auto' : 'opacity, transform, filter',
       }}
     >
       {children}

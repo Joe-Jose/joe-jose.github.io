@@ -37,7 +37,7 @@ export default function App() {
 
       <PcbCanvas debugNets={debugNets} />
 
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pl-14 md:pl-24 py-20 space-y-[55vh]">
+      <main className="relative z-10 max-w-6xl mx-auto px-6">
         <SignalSpine
           nodes={[
             { id: 'hero', ref: 'U0' },
@@ -45,7 +45,7 @@ export default function App() {
             { id: 'projects', ref: 'U2' },
             { id: 'experience', ref: 'U3' },
             { id: 'publication', ref: 'DOC1' },
-            { id: 'skills', ref: 'BOM' },
+            { id: 'skills', ref: 'SKL' },
             { id: 'education', ref: 'U6' },
             { id: 'contact', ref: 'J1' },
           ]}
@@ -57,14 +57,16 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
-        <ExperienceSection />
-        <PublicationSection />
+        <div className="px-6 md:px-12 py-12 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+          <ExperienceSection />
+          <PublicationSection />
+        </div>
         <SkillsSection />
         <EducationSection />
-        <ContactSection />
+        <ContactSection debugNets={debugNets} onToggleDebug={() => setDebugNets((v) => !v)} />
 
         {/* Extra spacer at bottom for scroll spine */}
-        <div className="h-64" aria-hidden="true" />
+        <div className="h-16" aria-hidden="true" />
       </main>
     </div>
   );

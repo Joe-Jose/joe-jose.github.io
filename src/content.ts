@@ -24,6 +24,7 @@ export interface ProjectItem {
   pins: string[];
   githubUrl?: string;
   demoUrl?: string;
+  status?: string;
 }
 
 export interface ExperienceItem {
@@ -91,7 +92,7 @@ export const ABOUT_CONTENT = {
     { pin: 'PIN 01', parameter: 'ROLE', value: 'Embedded Software / Firmware Engineer' },
     { pin: 'PIN 02', parameter: 'LOCATION', value: 'Kottayam, Kerala' },
     { pin: 'PIN 03', parameter: 'EDUCATION', value: 'B.Tech ECE (Honors in VLSI) · 2023–2027' },
-    { pin: 'PIN 04', parameter: 'FOCUS', value: 'Low-Power Firmware, FreeRTOS, Edge TinyML, VLSI DV' },
+    { pin: 'PIN 04', parameter: 'FOCUS', value: 'Low-power firmware, FreeRTOS, edge TinyML' },
   ],
 } as const;
 
@@ -99,7 +100,7 @@ export const PROJECTS_CONTENT: ProjectItem[] = [
   {
     id: 'adaptive-compute-module',
     ref: 'U2',
-    packageCode: 'QFP-48 // ACTIVE',
+    packageCode: 'QFP-48',
     title: 'Adaptive Compute Module for Rotary Diagnostics',
     subtitle: 'Real-time vibration monitoring & TinyML edge-to-cloud inference',
     period: 'June 2026 – Present',
@@ -111,14 +112,15 @@ export const PROJECTS_CONTENT: ProjectItem[] = [
       'Firmware on ESP-IDF with FreeRTOS tasks and queues, separating vibration sampling, feature extraction and TensorFlow Lite Micro inference so sampling stays uninterrupted.',
       'Implementing adaptive edge-to-cloud inference to balance on-device and cloud compute load in real time.',
     ],
-    pins: ['ESP32-S3', 'ESP-IDF', 'FreeRTOS', 'TFLM', 'TinyML', 'I2C/SPI'],
+    pins: ['ESP32-S3', 'ESP-IDF', 'FreeRTOS', 'TFLM'],
     githubUrl: '',
     demoUrl: '',
+    status: 'In progress',
   },
   {
     id: 'aquasential',
     ref: 'U3',
-    packageCode: 'SOIC-16 // PUBLISHED',
+    packageCode: 'SOIC-16',
     title: 'AquaSential — UAV Deployed Water Monitor',
     subtitle: 'Autonomous drone-deployable multi-sensor IoT node',
     period: 'March 2026',
@@ -128,32 +130,15 @@ export const PROJECTS_CONTENT: ProjectItem[] = [
       'Engineered a drone-deployable IoT module with a multi-sensor array to monitor water parameters and autonomously predict amoeba development in remote environments.',
       'Published the research in STM Journals, detailing the module’s autonomous prediction capability.',
     ],
-    pins: ['ESP32-S3', 'Multi-Sensor Array', 'C++', 'UART'],
+    pins: ['ESP32-S3', 'Multi-sensor array', 'C++'],
     githubUrl: '',
     demoUrl: '',
-  },
-  {
-    id: 'havncraft-firmware',
-    ref: 'U4',
-    packageCode: 'QFN-24 // PRODUCTION',
-    title: 'Low-Power DAQ Firmware (HAVNCRAFT)',
-    subtitle: 'Battery-operated ESP32-C3 acquisition & deep-sleep pipeline',
-    period: 'Jan 2026 – July 2026',
-    summary:
-      'End-to-end sensor acquisition, firmware optimization, and hardware debugging engineered within strict cost and power envelopes.',
-    highlights: [
-      'Developed optimized C++ firmware for the ESP32-C3 using deep-sleep cycles, reducing power consumption by ~97% for battery-operated deployment.',
-      'Designed an end-to-end data acquisition pipeline (sensor interfacing, firmware, data transfer) under a bill-of-materials constraint of Rs. 1,500.',
-      'Carried out hardware debugging on the prototype while meeting both cost and power constraints.',
-    ],
-    pins: ['ESP32-C3', 'C++', 'Deep-Sleep', 'I2C', 'SPI'],
-    githubUrl: '',
-    demoUrl: '',
+    status: 'Published',
   },
   {
     id: 'sign-language-translator',
-    ref: 'U5',
-    packageCode: 'SOP-14 // VISION',
+    ref: 'U4',
+    packageCode: 'SOP-14',
     title: 'ESP32-CAM Sign Language Translator',
     subtitle: 'Low-latency edge vision gesture capture & translation',
     period: 'April 2025',
@@ -162,9 +147,10 @@ export const PROJECTS_CONTENT: ProjectItem[] = [
     highlights: [
       'Built a low-latency edge device using computer vision to capture, process and translate sign-language gestures in real time.',
     ],
-    pins: ['ESP32-CAM', 'OpenCV', 'Python', 'UART'],
+    pins: ['ESP32-CAM', 'OpenCV', 'Python'],
     githubUrl: '',
     demoUrl: '',
+    status: 'Completed',
   },
 ];
 
@@ -188,7 +174,7 @@ export const PUBLICATION_CONTENT = {
   badge: 'Published in STM Journals',
   title: 'AquaSential: Autonomous UAV-Based Water Quality Monitoring System',
   description:
-    'Peer-reviewed IoT publication detailing the drone-deployable multi-sensor water monitoring module and its autonomous amoeba-development prediction capability in remote environments.',
+    'Research paper on the drone-deployable multi-sensor water monitor and its autonomous prediction of amoeba development in remote environments.',
   linkLabel: 'Read paper in STM Journals',
   url: PLACEHOLDERS.STM_JOURNAL_LINK,
 } as const;
@@ -221,8 +207,6 @@ export const BOM_SKILLS: SkillRow[] = [
   { ref: 'ENG1', component: 'Rapid Learning · Adaptability · Problem Solving', category: 'Engineering', specNote: 'Cross-stack debug & constraint execution' },
 ];
 
-export const BOM_FOOTER_NOTE = 'Project BOM constraint met: Rs. 1,500';
-
 export const EDUCATION_CONTENT = {
   ref: 'U6',
   institution: 'Amal Jyothi College of Engineering',
@@ -254,7 +238,7 @@ export const CONTACT_CONTENT = {
 export const NAV_ITEMS = [
   { id: 'about', tp: 'TP1', label: 'ABOUT' },
   { id: 'projects', tp: 'TP2', label: 'PROJECTS' },
-  { id: 'experience', tp: 'TP3', label: 'REV LOG' },
-  { id: 'skills', tp: 'TP4', label: 'BOM' },
+  { id: 'experience', tp: 'TP3', label: 'EXPERIENCE' },
+  { id: 'skills', tp: 'TP4', label: 'SKILLS' },
   { id: 'contact', tp: 'TP5', label: 'CONTACT' },
 ] as const;

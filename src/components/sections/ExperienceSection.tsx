@@ -5,20 +5,18 @@ import { Reveal } from '../ui/Reveal';
 
 export const ExperienceSection: React.FC = () => {
   return (
-    <section id="experience" className="relative py-20 px-6 md:px-12">
-      <Reveal delay={0} className="max-w-3xl">
-        <SilkscreenLabel className="mb-8" refDes="REV">
-          REVISION LOG
+    <section id="experience" className="relative">
+      <Reveal delay={0} className="h-full flex flex-col">
+        <SilkscreenLabel className="mb-8" refDes="REV A">
+          EXPERIENCE
         </SilkscreenLabel>
 
-        <div className="space-y-6">
+        <div className="space-y-6 flex-1">
           {EXPERIENCE_CONTENT.map((exp) => (
-            <GlassCard key={exp.rev} className="relative overflow-hidden p-6" tilt sheen>
+            <GlassCard key={exp.rev} className="relative overflow-hidden p-6 h-full" tilt={false} sheen>
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div>
-                  <SilkscreenLabel className="mb-1" refDes={exp.rev}>
-                    {exp.role}
-                  </SilkscreenLabel>
+                  <SilkscreenLabel className="mb-1">{exp.role}</SilkscreenLabel>
                   <p className="text-ink-primary font-medium text-lg">
                     {exp.organization}
                   </p>

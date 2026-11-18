@@ -10,13 +10,13 @@ export const PublicationSection: React.FC = () => {
   const linkExists = useAssetExists(PUBLICATION_CONTENT.url);
 
   return (
-    <section id="publication" className="relative py-20 px-6 md:px-12">
-      <Reveal delay={0} className="max-w-3xl">
+    <section id="publication" className="relative">
+      <Reveal delay={0} className="h-full flex flex-col">
         <SilkscreenLabel className="mb-6" refDes={PUBLICATION_CONTENT.ref}>
           {PUBLICATION_CONTENT.badge}
         </SilkscreenLabel>
 
-        <GlassCard className="p-6 md:p-8 relative overflow-hidden" tilt sheen>
+        <GlassCard className="p-6 relative overflow-hidden flex-1" tilt={false} sheen>
           <div className="absolute top-4 right-4 pointer-events-none opacity-5">
             <svg className="w-24 h-24 text-copper/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -28,7 +28,7 @@ export const PublicationSection: React.FC = () => {
           </div>
 
           <div className="relative z-10">
-            <h3 className="mb-3">
+            <h3 className="mb-3 pr-16">
               <MetalText size="xl" sheen>
                 {PUBLICATION_CONTENT.title}
               </MetalText>

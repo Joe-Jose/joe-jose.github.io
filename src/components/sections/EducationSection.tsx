@@ -6,13 +6,13 @@ import { Reveal } from '../ui/Reveal';
 
 export const EducationSection: React.FC = () => {
   return (
-    <section id="education" className="relative py-20 px-6 md:px-12">
-      <Reveal delay={0} className="max-w-2xl">
+    <section id="education" className="relative px-6 md:px-12 py-12 md:py-16">
+      <Reveal delay={0}>
         <SilkscreenLabel className="mb-8" refDes={EDUCATION_CONTENT.ref}>
           EDUCATION
         </SilkscreenLabel>
 
-        <GlassCard className="p-6 md:p-8" tilt sheen>
+        <GlassCard className="p-6 md:p-8" tilt={false} sheen>
           <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-6">
             <div>
               <MetalText size="2xl" className="mb-2">

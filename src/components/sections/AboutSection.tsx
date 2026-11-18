@@ -5,8 +5,8 @@ import { Reveal } from '../ui/Reveal';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="relative py-20 px-6 md:px-12">
-      <Reveal delay={0} className="max-w-4xl">
+    <section id="about" className="relative px-6 md:px-12 py-12 md:py-16">
+      <Reveal delay={0}>
         <SilkscreenLabel className="mb-6" refDes={ABOUT_CONTENT.ref}>
           {ABOUT_CONTENT.packageType}
         </SilkscreenLabel>
@@ -16,11 +16,11 @@ export const AboutSection: React.FC = () => {
             <div className="glass-card p-6 md:p-8">
               <div className="flex items-baseline gap-3 mb-6">
                 <MetalText size="3xl">{ABOUT_CONTENT.partNumber}</MetalText>
-                <SilkscreenLabel>DATASHEET</SilkscreenLabel>
+                <SilkscreenLabel>ABOUT ME</SilkscreenLabel>
               </div>
 
               <h2 className="text-ink-secondary text-lg mb-4 font-medium">
-                General Description
+                Summary
               </h2>
 
               <p className="text-ink-secondary leading-relaxed text-base mb-8">
@@ -28,7 +28,7 @@ export const AboutSection: React.FC = () => {
               </p>
 
               <h2 className="text-ink-secondary text-lg mb-4 font-medium">
-                Key Features
+                Highlights
               </h2>
 
               <ul className="space-y-3">
@@ -45,11 +45,11 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-96 flex-shrink-0">
+          <div className="w-full md:w-[26rem] flex-shrink-0">
             <div className="glass-card p-6 overflow-hidden">
               <h2 className="text-ink-secondary text-lg mb-4 font-medium flex items-center gap-2">
-                <SilkscreenLabel>PINOUT</SilkscreenLabel>
-                Electrical Characteristics
+                
+                At a glance
               </h2>
 
               <div className="overflow-x-auto">

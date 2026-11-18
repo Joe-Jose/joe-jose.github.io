@@ -9,33 +9,27 @@ import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const HeroSection: React.FC = () => {
   const reducedMotion = useReducedMotion();
-  const [bootPhase, setBootPhase] = useState(0);
-  const [showContent, setShowContent] = useState(false);
-  const [hasBooted, setHasBooted] = useState(false);
+  const alreadyBooted = typeof window !== 'undefined' && sessionStorage.getItem('hero-boot-done') === 'true';
+  const [bootPhase, setBootPhase] = useState(alreadyBooted ? 4 : 0);
+  const [hasBooted, setHasBooted] = useState(alreadyBooted);
   const chipRef = useRef<SVGSVGElement>(null);
   const resumeExists = useAssetExists(PLACEHOLDERS.RESUME_PDF, 'application/pdf');
   const [bootSkipped, setBootSkipped] = useState(false);
 
-  useEffect(() => {
-    const done = sessionStorage.getItem('hero-boot-done');
-    if (done) {
-      setHasBooted(true);
-      setBootSkipped(true);
-      setShowContent(true);
-    }
-  }, []);
-
   const skipBoot = () => {
     if (bootSkipped) return;
     setBootSkipped(true);
+    setBootPhase(4);
     setHasBooted(true);
-    setShowContent(true);
     sessionStorage.setItem('hero-boot-done', 'true');
   };
 
   useEffect(() => {
-    if (reducedMotion || hasBooted) {
-      setShowContent(true);
+    if (reducedMotion) {
+      setBootPhase(4);
+      return;
+    }
+    if (hasBooted) {
       return;
     }
 
@@ -50,7 +44,6 @@ export const HeroSection: React.FC = () => {
     const runBoot = () => {
       if (currentPhase >= phases.length) {
         setHasBooted(true);
-        setShowContent(true);
         sessionStorage.setItem('hero-boot-done', 'true');
         return;
       }
@@ -75,30 +68,18 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] flex items-center justify-between px-6 md:px-12 pt-20 pb-16"
+      className="relative flex flex-col md:flex-row items-center justify-between gap-10 px-6 md:px-12 pt-28 pb-12 md:min-h-[min(100vh,760px)]"
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
       aria-label="Hero section"
     >
-      <SilkscreenLabel className="absolute top-8 left-8 z-10" refDes={HERO_CONTENT.ref}>
-        {HERO_CONTENT.chipLabel}
-      </SilkscreenLabel>
-
-      <div className="absolute top-8 right-8 z-10 flex items-center gap-2">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inset-0 rounded-full bg-copper-warm animate-copper-pulse" />
-          <span className="absolute inset-0 rounded-full bg-copper-warm/20 animate-ping" />
-        </span>
-        <SilkscreenLabel>{HERO_CONTENT.statusText}</SilkscreenLabel>
-      </div>
-
-      <div className="relative z-10 flex-shrink-0" style={{ width: 280, height: 280 }}>
+      <div className="relative z-10 flex-shrink-0 flex flex-col items-center" style={{ width: 280 }}>
         <svg
           ref={chipRef}
           viewBox="0 0 280 280"
-          className="w-full h-full"
+          className="w-[280px] h-[280px]"
           fill="none"
           aria-hidden="true"
         >
@@ -228,7 +209,7 @@ export const HeroSection: React.FC = () => {
 
         {bootPhase >= 3 && (
           <div
-            className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[320px] text-left pointer-events-none"
+            className="mt-2 w-full text-left pointer-events-none min-h-[104px]"
             aria-live="polite"
             role="log"
           >
@@ -248,17 +229,13 @@ export const HeroSection: React.FC = () => {
         )}
       </div>
 
-      <div
-        className="relative z-10 max-w-xl flex-1 min-w-0 ml-8 md:ml-16"
-        style={{
-          opacity: showContent ? 1 : 0,
-          transform: showContent ? 'translateY(0)' : 'translateY(24px)',
-          transition: 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)',
-        }}
-      >
-        <SilkscreenLabel className="mb-4" refDes="U0">
-          BOOT COMPLETE
-        </SilkscreenLabel>
+      <div className="relative z-10 max-w-xl flex-1 min-w-0 md:ml-8">
+        <div className="mb-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-pill border border-copper/25 bg-board-raised/40">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inset-0 rounded-full bg-copper-warm animate-copper-pulse" />
+          </span>
+          <SilkscreenLabel>{HERO_CONTENT.statusText}</SilkscreenLabel>
+        </div>
 
         <h1 className="mb-3">
           <MetalText size="4xl" sheen>

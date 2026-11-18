@@ -47,7 +47,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ sectionIds }) => {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+        className="hidden md:block fixed top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
       >
         <div className="glass-card px-5 py-2 pointer-events-auto" style={sheenStyle}>
           <div className="flex items-center gap-1">
@@ -56,9 +56,9 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ sectionIds }) => {
                 key={item.id}
                 type="button"
                 onClick={() => scrollTo(item.id)}
-                className={`relative flex items-center gap-2 px-3 py-1.5 rounded-pill transition-all duration-300 ${
+                className={`relative flex items-center gap-2 pl-6 pr-3 py-1.5 rounded-pill transition-all duration-300 ${
                   activeId === item.id
-                    ? 'text-ink-primary bg-board-raised/50 before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2 before:left-2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-copper-warm'
+                    ? 'text-ink-primary bg-board-raised/50 before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2 before:left-2.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-copper-warm'
                     : 'text-ink-tertiary hover:text-ink-primary'
                 }`}
                 style={{ transitionDelay: `${idx * 40}ms` } as CSSProperties}
